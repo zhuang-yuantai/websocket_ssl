@@ -13,12 +13,12 @@ class Socket : public QObject
     Q_OBJECT
 public:
     explicit Socket(QObject *parent = nullptr);
-    Q_INVOKABLE bool TextMessageReceived(QString message);
-
-
+    Q_INVOKABLE bool sendTextMessage(QString message);
+    Q_INVOKABLE bool close();
 
 signals:
-    void TextMessageReceivedChanged();
+    void textMessageReceivedChanged(QString message);
+
 public slots:
 
 private Q_SLOTS:
@@ -28,9 +28,6 @@ private Q_SLOTS:
     void onTextMessageReceived(QString message);
 
 private:
-
-    QSslConfiguration sslConfiguration;
-    QSslSocket sslSocke;
     QWebSocket m_webSocket;
 };
 

@@ -68,7 +68,7 @@ Window {
                 anchors.fill: parent
                 onClicked: {
 //                    if (secureWebSocket.status == WebSocket.Open) {
-                        socket.TextMessageReceived("{\"action\":\""+inputName.text+"\", \"data\":\""+inputTalk.text+"\"}")
+                        socket.sendTextMessage("{\"action\":\""+inputName.text+"\", \"data\":\""+inputTalk.text+"\"}")
 //                    }else{
 //                        console.log("        log        : socket not open")
 //                    }
@@ -77,31 +77,35 @@ Window {
         }
     }
 
-//    Text {
-//        id: messageBox
-//        text: secureWebSocket.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
-//        anchors.top: rectangle1.bottom
-//        anchors.right: parent.right
-//        anchors.left: parent.left
+    Text {
+        id: messageBox
+        //text: secureWebSocket.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
+        anchors.top: rectangle1.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
 
-//    }
-//    Text {
-//        id: textExit
-//        width:parent.width
-//        color: "#111111"
-//        text: qsTr("關閉連接")
-//        font.pixelSize: 24
-//        anchors.bottom: parent.bottom
+    }
+    Connections{
+        target: socket
+        onTextMessageReceivedChanged:{
+            var jsonObject= JSON.parse(message);
+            messageBox.text = jsonObject.action +"說"+ jsonObject.data + "\n" + messageBox.text
+        }
+    }
 
-//        MouseArea {
-//            anchors.fill: parent
-//            onClicked: {
-//                if (socket.status == WebSocket.Open) {
-//                    socket.active = false
-//                }else{
-//                    console.log("        log        : socket is Closed")
-//                }
-//            }
-//        }
-//    }
+    Text {
+        id: textExit
+        width:parent.width
+        color: "#111111"
+        text: qsTr("關閉連接")
+        font.pixelSize: 24
+        anchors.bottom: parent.bottom
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                socket.close();
+            }
+        }
+    }
 }
