@@ -4,14 +4,16 @@
 #include <QCoreApplication>
 #include <QSslConfiguration>
 #include <QSslSocket>
+#include <QTextCodec>
 
 Socket::Socket(QObject *parent) : QObject(parent)
 {
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     connect(&m_webSocket, &QWebSocket::connected, this, &Socket::onConnected);
     connect(&m_webSocket, QOverload<const QList<QSslError>&>::of(&QWebSocket::sslErrors),
             this, &Socket::onSslErrors);
     QSslConfiguration config = m_webSocket.sslConfiguration();
-    config.setPeerVerifyMode(QSslSocket::VerifyNone);
+    config.setPeerVerifyMode(QSslSocket::QueryPeer);
     config.setProtocol(QSsl::TlsV1SslV3);
     m_webSocket.setSslConfiguration(config);
     m_webSocket.open(QUrl(QStringLiteral("wss://webSocket.nctu.me:4433")));
