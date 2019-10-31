@@ -16,7 +16,7 @@ Socket::Socket(QObject *parent) : QObject(parent)
     config.setPeerVerifyMode(QSslSocket::QueryPeer);
     config.setProtocol(QSsl::TlsV1SslV3);
     m_webSocket.setSslConfiguration(config);
-    m_webSocket.open(QUrl(QStringLiteral("wss://webSocket.nctu.me:4433")));
+    m_webSocket.open(QUrl(QStringLiteral("ws://webSocket.nctu.me:4433")));
 
 }
 
@@ -61,7 +61,7 @@ bool Socket::close(){
 
 bool Socket::connectionSocket(){
     qDebug() <<"      log start connection";
-    m_webSocket.open(QUrl(QStringLiteral("wss://webSocket.nctu.me:4433")));
+    m_webSocket.open(QUrl(QStringLiteral("ws://webSocket.nctu.me:4433")));
     emit textMessageReceivedChanged("{\"action\":\"System\", \"data\":\"Socket connection\"}");
     qDebug() <<"        log connection end";
     return 0;
