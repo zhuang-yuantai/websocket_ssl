@@ -93,18 +93,39 @@ Window {
         }
     }
 
-    Text {
-        id: textExit
+
+    Rectangle {
         width:parent.width
-        color: "#111111"
-        text: qsTr("關閉連接")
-        font.pixelSize: 24
+        color: "#ffff00"
         anchors.bottom: parent.bottom
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                socket.close();
+        Text{
+            id: textExit
+            text: qsTr("Exit")
+            font.pixelSize: 24
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    socket.close();
+                }
+            }
+        }
+
+        Text{
+            id: textConnection
+            text: qsTr("Connection")
+            font.pixelSize: 24
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    socket.connectionSocket();
+                }
             }
         }
     }

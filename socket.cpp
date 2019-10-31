@@ -56,3 +56,11 @@ bool Socket::close(){
     emit textMessageReceivedChanged("{\"action\":\"System\", \"data\":\"Socket close\"}");
     return 0;
 }
+
+bool Socket::connectionSocket(){
+    qDebug() <<"      log start connection";
+    m_webSocket.open(QUrl(QStringLiteral("wss://webSocket.nctu.me:4433")));
+    emit textMessageReceivedChanged("{\"action\":\"System\", \"data\":\"Socket connection\"}");
+    qDebug() <<"        log connection end";
+    return 0;
+}

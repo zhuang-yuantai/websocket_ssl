@@ -15,6 +15,7 @@ public:
     explicit Socket(QObject *parent = nullptr);
     Q_INVOKABLE bool sendTextMessage(QString message);
     Q_INVOKABLE bool close();
+    Q_INVOKABLE bool connectionSocket();
 
 signals:
     void textMessageReceivedChanged(QString message);
