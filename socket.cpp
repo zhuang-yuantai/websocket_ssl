@@ -49,6 +49,7 @@ void Socket::onDisconnected()
 bool Socket::sendTextMessage(QString message){
     qDebug() << "        log message:" << message;
     m_webSocket.sendTextMessage(message.toUtf8());
+    emit textMessageReceivedChanged("{\"action\":\"System echo\", \"data\":\""+message.toUtf8()+"\"}");
     return 0;
 }
 bool Socket::close(){

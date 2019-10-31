@@ -88,8 +88,9 @@ Window {
     Connections{
         target: socket
         onTextMessageReceivedChanged:{
-            var jsonObject= JSON.parse(message);
-            messageBox.text = jsonObject.action +"說"+ jsonObject.data + "\n" + messageBox.text
+            //var jsonObject= JSON.parse(message);
+            //messageBox.text = jsonObject.action +"說"+ jsonObject.data + "\n" + messageBox.text
+            messageBox.text = message.replace(",","\n") +"\n" + messageBox.text
         }
     }
 
